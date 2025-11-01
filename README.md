@@ -1,70 +1,155 @@
-# Getting Started with Create React App
+# Stock Dashboard Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A fullstack web application for live stock monitoring, built with **Spring Boot** (Java) and **React**.  
+Supports JWT authentication, real-time updates via WebSocket/STOMP, and user-specific stock subscriptions.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- User Login and Registration (JWT Auth)
+- Real-time stock prices (WebSocket, STOMP)
+- Subscribe/unsubscribe to specific stocks
+- Material UI (MUI) based responsive UI
+- Protected profile and dashboard pages
+- Modern SPA navigation (React Router)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+- **Frontend**: React, React Router, Material UI
+- **Backend**: Spring Boot (Java), Spring Security (JWT), WebSocket/STOMP messaging
+- **Communication**: JSON REST + WebSocket (no SockJS fallback for clean modern support)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Clone this repo
+git clone https://github.com/rajankumar2003/Stock-Dashboard.git
+cd Stock_Dashboard
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+### Backend Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Move to backend directory (or root if mono-repo):**
+2. Build with Maven/Gradle:
+    ```
+    ./mvnw spring-boot:run
+    ```
+    or
+    ```
+    ./gradlew bootRun
+    ```
+3. The backend will start at [http://localhost:8080](http://localhost:8080) by default.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Note:
+- Make sure to set up any required DB config (if not using in-memory/demo data).
+- JWT signing secret/config is set in `application.properties`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Frontend Setup
 
-## Learn More
+1. Move to frontend directory:
+    ```
+    cd frontend
+    ```
+2. Install dependencies:
+    ```
+    npm install
+    ```
+3. Start the React server:
+    ```
+    npm start
+    ```
+4. This will run the frontend on [http://localhost:3000](http://localhost:3000) by default.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Usage
 
-### Code Splitting
+- Register a new account or login with existing credentials.
+- View the live stock dashboard, subscribe/unsubscribe to different stocks.
+- Visit the Profile page to see your email and logout.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Directory Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+project-root/
+│
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   │   └── dashboard/
+│   │   │   │       ├── StockService.java
+│   │   │   │       ├── WebSocketConfig.java
+│   │   │   │       ├── JwtHandshakeInterceptor.java
+│   │   │   │       ├── models/    # (e.g. StockPrice.java, User.java ...)
+│   │   │   └── resources/
+│   │   │       ├── application.properties
+│   │   │       └── static/        
+│   ├── pom.xml
+│   └── ... (other Spring Boot config)
+│
+├── frontend/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Header.js
+│   │   │   ├── Protected.js
+│   │   │   ├── StockCard.js
+│   │   │   └── ... (reusable UI pieces)
+│   │   ├── contexts/
+│   │   │   └── AuthContext.js
+│   │   ├── pages/
+│   │   │   ├── Dashboard.js
+│   │   │   ├── Profile.js
+│   │   │   └── Login.js
+│   │   ├── services/
+│   │   │   └── socketService.js
+│   │   ├── App.js
+│   │   ├── index.js
+│   │   └── Login.css            
+│   ├── package.json
+│   └── ... (configuration: .env, README.md, etc.)
+│
+├── README.md
+└── LICENSE
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Customization
 
-### Deployment
+- **Add more stocks**: Edit the supported symbols array in both backend and frontend.
+- **Styling**: Tweak components with MUI `sx` or CSS.
+- **Authentication**: JWT handling, AuthContext, and backend security config.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+PRs welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
+## License
+
+[MIT](LICENSE)
+
+---
+
+## Acknowledgements
+
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [React](https://reactjs.org/)
+- [Material UI](https://mui.com/)
+
